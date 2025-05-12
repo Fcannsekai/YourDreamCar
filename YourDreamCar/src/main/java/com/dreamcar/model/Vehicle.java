@@ -1,6 +1,4 @@
-package com.dreamcar.ui;
-
-public class vehicle {
+package com.dreamcar.model;
 
     public class Vehicle {
         private int vin;
@@ -86,6 +84,9 @@ public class vehicle {
         public void setPrice(double price) {
             this.price = price;
         }
+
+        public void display() {
+        }
     }
 
-}
+
