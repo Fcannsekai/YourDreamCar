@@ -33,28 +33,36 @@ public class UserInterface {
             System.out.print("> ");
 
             String input = scanner.nextLine();
+
             switch (input) {
-                case "1":
-                    processAllVehiclesRequest();
-                    break;
-                case "2":
-                    processAddVehicleRequest();
-                    break;
-                case "3":
-                    processRemoveVehicleRequest();
-                    break;
-                case "0":
+                case "1" -> processAllVehiclesRequest();
+                case "2" -> processAddVehicleRequest();
+                case "3" -> processRemoveVehicleRequest();
+                case "4" -> processPriceSearch();
+                case "5" -> processMakeModelSearch();
+                case "6" -> processYearSearch();
+                case "7" -> processColorSearch();
+                case "8" -> processMileageSearch();
+                case "9" -> processTypeSearch();
+                case "0" -> {
                     System.out.println("Goodbye!");
                     return;
-                default:
-                    System.out.println("Invalid input.");
+                }
+                default -> System.out.println("Invalid input.");
             }
         }
     }
 
+
     private void init() {
         DealershipFileManager dfm = new DealershipFileManager();
         this.dealership = dfm.getDealership();
+
+        if (this.dealership == null) {
+            System.out.println("⚠️ Dealership not loaded!");
+        } else {
+            System.out.println("✅ Dealership loaded: " + dealership.getName());
+        }
     }
 
     private void processAllVehiclesRequest() {
@@ -113,8 +121,66 @@ public class UserInterface {
     }
 
     private void displayVehicles(List<Vehicle> vehicles) {
+        if (vehicles == null || vehicles.isEmpty()) {
+            System.out.println("⚠️ No vehicles found.");
+            return;
+        }
+
         for (Vehicle vehicle : vehicles) {
             vehicle.display();
         }
     }
+
+    private void processPriceSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter minimum price: ");
+        double min = Double.parseDouble(scanner.nextLine());
+        System.out.print("Enter maximum price: ");
+        double max = Double.parseDouble(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByPrice(min, max));
+    }
+
+    private void processMakeModelSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter make: ");
+        String make = scanner.nextLine();
+        System.out.print("Enter model: ");
+        String model = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByMakeModel(make, model));
+    }
+
+    private void processYearSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter start year: ");
+        int min = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter end year: ");
+        int max = Integer.parseInt(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByYear(min, max));
+    }
+
+    private void processColorSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter color: ");
+        String color = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByColor(color));
+    }
+
+    private void processMileageSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter minimum mileage: ");
+        int min = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter maximum mileage: ");
+        int max = Integer.parseInt(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByMileage(min, max));
+    }
+
+    private void processTypeSearch() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter vehicle type (Car, Truck, SUV, Van): ");
+        String type = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByType(type));
+    }
 }
+
+
+
