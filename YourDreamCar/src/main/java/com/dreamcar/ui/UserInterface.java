@@ -15,12 +15,22 @@ public class UserInterface {
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("\nWelcome to " + dealership.getName() + "\n" +
-                    "1 - List All Vehicles\n" +
-                    "2 - Add a Vehicle\n" +
-                    "3 - Remove a Vehicle\n" +
-                    "0 - Quit\n" +
-                    "> ");
+
+            System.out.println("╔════════════════════════════════════════════╗");
+            System.out.println("║        Welcome to " + dealership.getName());
+            System.out.println("╠════════════════════════════════════════════╣");
+            System.out.println("║ 1  -> List All Vehicles                    ║");
+            System.out.println("║ 2  -> Add a Vehicle                        ║");
+            System.out.println("║ 3  -> Remove a Vehicle                     ║");
+            System.out.println("║ 4  -> Search by Price                      ║");
+            System.out.println("║ 5  -> Search by Make & Model               ║");
+            System.out.println("║ 6  -> Search by Year Range                 ║");
+            System.out.println("║ 7  -> Search by Color                      ║");
+            System.out.println("║ 8  -> Search by Mileage                    ║");
+            System.out.println("║ 9  -> Search by Type                       ║");
+            System.out.println("║ 0  -> Quit                                 ║");
+            System.out.println("╚════════════════════════════════════════════╝");
+            System.out.print("> ");
 
             String input = scanner.nextLine();
             switch (input) {
