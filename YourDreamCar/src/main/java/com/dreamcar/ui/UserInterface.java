@@ -32,7 +32,7 @@ public class UserInterface {
             System.out.println("╚════════════════════════════════════════════╝");
             System.out.print("> ");
 
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
 
             switch (input) {
                 case "1" -> processAllVehiclesRequest();
@@ -53,19 +53,20 @@ public class UserInterface {
         }
     }
 
-
     private void init() {
         DealershipFileManager dfm = new DealershipFileManager();
         this.dealership = dfm.getDealership();
 
         if (this.dealership == null) {
-            System.out.println("⚠️ Dealership not loaded!");
+            System.out.println("Dealership not loaded!");
         } else {
-            System.out.println("✅ Dealership loaded: " + dealership.getName());
+            System.out.println("Dealership loaded: " + dealership.getName());
+            System.out.println("Vehicles loaded: " + dealership.getAllVehicles().size());
         }
     }
 
     private void processAllVehiclesRequest() {
+        System.out.println("Listing all vehicles...");
         displayVehicles(dealership.getAllVehicles());
     }
 
@@ -73,21 +74,21 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         try {
             System.out.print("Enter VIN: ");
-            int vin = Integer.parseInt(scanner.nextLine());
+            int vin = Integer.parseInt(scanner.nextLine().trim());
             System.out.print("Enter year: ");
-            int year = Integer.parseInt(scanner.nextLine());
+            int year = Integer.parseInt(scanner.nextLine().trim());
             System.out.print("Enter make: ");
-            String make = scanner.nextLine();
+            String make = scanner.nextLine().trim();
             System.out.print("Enter model: ");
-            String model = scanner.nextLine();
+            String model = scanner.nextLine().trim();
             System.out.print("Enter type: ");
-            String type = scanner.nextLine();
+            String type = scanner.nextLine().trim();
             System.out.print("Enter color: ");
-            String color = scanner.nextLine();
+            String color = scanner.nextLine().trim();
             System.out.print("Enter odometer: ");
-            int odometer = Integer.parseInt(scanner.nextLine());
+            int odometer = Integer.parseInt(scanner.nextLine().trim());
             System.out.print("Enter price: ");
-            double price = Double.parseDouble(scanner.nextLine());
+            double price = Double.parseDouble(scanner.nextLine().trim());
 
             Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
             dealership.addVehicle(vehicle);
@@ -101,7 +102,7 @@ public class UserInterface {
     private void processRemoveVehicleRequest() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter VIN of vehicle to remove: ");
-        int vinToRemove = Integer.parseInt(scanner.nextLine());
+        int vinToRemove = Integer.parseInt(scanner.nextLine().trim());
 
         Vehicle vehicleToRemove = null;
         for (Vehicle v : dealership.getAllVehicles()) {
@@ -122,65 +123,64 @@ public class UserInterface {
 
     private void displayVehicles(List<Vehicle> vehicles) {
         if (vehicles == null || vehicles.isEmpty()) {
-            System.out.println("⚠️ No vehicles found.");
+            System.out.println("No vehicles found.");
             return;
         }
 
+        System.out.println("═════════════════════════════════════════════════════════════");
         for (Vehicle vehicle : vehicles) {
             vehicle.display();
         }
+        System.out.println("═════════════════════════════════════════════════════════════");
     }
 
     private void processPriceSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter minimum price: ");
-        double min = Double.parseDouble(scanner.nextLine());
+        double min = Double.parseDouble(scanner.nextLine().trim());
         System.out.print("Enter maximum price: ");
-        double max = Double.parseDouble(scanner.nextLine());
+        double max = Double.parseDouble(scanner.nextLine().trim());
         displayVehicles(dealership.getVehiclesByPrice(min, max));
     }
 
     private void processMakeModelSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter make: ");
-        String make = scanner.nextLine();
+        String make = scanner.nextLine().trim();
         System.out.print("Enter model: ");
-        String model = scanner.nextLine();
+        String model = scanner.nextLine().trim();
         displayVehicles(dealership.getVehiclesByMakeModel(make, model));
     }
 
     private void processYearSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter start year: ");
-        int min = Integer.parseInt(scanner.nextLine());
+        int min = Integer.parseInt(scanner.nextLine().trim());
         System.out.print("Enter end year: ");
-        int max = Integer.parseInt(scanner.nextLine());
+        int max = Integer.parseInt(scanner.nextLine().trim());
         displayVehicles(dealership.getVehiclesByYear(min, max));
     }
 
     private void processColorSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter color: ");
-        String color = scanner.nextLine();
+        String color = scanner.nextLine().trim();
         displayVehicles(dealership.getVehiclesByColor(color));
     }
 
     private void processMileageSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter minimum mileage: ");
-        int min = Integer.parseInt(scanner.nextLine());
+        int min = Integer.parseInt(scanner.nextLine().trim());
         System.out.print("Enter maximum mileage: ");
-        int max = Integer.parseInt(scanner.nextLine());
+        int max = Integer.parseInt(scanner.nextLine().trim());
         displayVehicles(dealership.getVehiclesByMileage(min, max));
     }
 
     private void processTypeSearch() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter vehicle type (Car, Truck, SUV, Van): ");
-        String type = scanner.nextLine();
+        String type = scanner.nextLine().trim();
         displayVehicles(dealership.getVehiclesByType(type));
     }
 }
-
-
-

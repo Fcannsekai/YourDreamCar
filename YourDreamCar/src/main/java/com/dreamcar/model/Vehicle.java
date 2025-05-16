@@ -86,7 +86,19 @@ package com.dreamcar.model;
         }
 
         public void display() {
+
+                System.out.println("----------------------------------------");
+                System.out.println("VIN: " + vin);
+                System.out.println("Year: " + year);
+                System.out.println("Make: " + make);
+                System.out.println("Model: " + model);
+                System.out.println("Type: " + type);
+                System.out.println("Color: " + color);
+                System.out.println("Odometer: " + odometer + " mi");
+                System.out.println("Price: $" + String.format("%.2f", price));
+                System.out.println("----------------------------------------");
+            }
         }
-    }
+
 
 
